@@ -1,0 +1,535 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, coding李" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
+##1. 实现后台定位有两种方法
+
+standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
+<meta property="og:type" content="website">
+<meta property="og:title" content="后台定位实现方案">
+<meta property="og:url" content="http://yoursite.com/categories/后台定位实现方案.html">
+<meta property="og:site_name" content="coding李">
+<meta property="og:description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
+##1. 实现后台定位有两种方法
+
+standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
+<meta property="og:updated_time" content="2017-04-01T16:25:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后台定位实现方案">
+<meta name="twitter:description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
+##1. 实现后台定位有两种方法
+
+standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/categories/后台定位实现方案.html"/>
+
+
+
+
+
+  <title>
+  
+
+  
+    后台定位实现方案 | coding李
+  
+</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coding李</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">后台定位实现方案</h1>
+
+
+
+</header>
+
+    
+    
+      <h1 id="后台定位实现方案"><a href="#后台定位实现方案" class="headerlink" title="后台定位实现方案"></a>后台定位实现方案</h1><p>##通过翻阅了各种官方文档和资料，总结结果如下：</p>
+<p>##1. 实现后台定位有两种方法</p>
+<ol>
+<li>standard location service（调用CLLoctionManager的StartUpdateLocation）</li>
+<li>significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChanges）  </li>
+</ol>
+<p>##2. 两者区别</p>
+<ol>
+<li>startUpdatingLocation）是标准定位，想要在后台使用必须在info.plist文件中增加Required background modes属性，并选择App registers for location updates值。</li>
+<li>startUpdatingLocation）在后台运行时可能会因为资源问题被系统挂起（suspend）或终止（terminate），但一旦有更新会被唤起，但是当更新时系统任然资源紧张，则会被延迟调用委托。如果对于实时性要求高的可能不适合这个，很难控制用户机器性能状况。</li>
+<li>startUpdatingLocation）如果被用户手动关闭，就不会再被唤醒。定位基于gps/基站/wifi定位，具体使用哪一种CoreLocation框架有一套自己的规则。</li>
+<li>startMonitoringSignificantLocationChanges）是使用基站定位的，所以设备一定要有电话模块，在plist中可以设置xx属性来限制可被下载安装的设备。</li>
+<li>startMonitoringSignificantLocationChanges）不管是在后台还是用户手动关闭都会被唤醒调用委托，只有3种方法可以阻止它的更新。（1）用户关闭定位服务（2）用户关闭对该app的定位服务（3）设备处于飞行模式或者无法开启必要的硬件（猜测是定位模块的硬件）。</li>
+<li>startMonitoringSignificantLocationChanges）什么时候更新呢？是在更换基站的时候更新。所以更新频率与基站密度有关。市区更新频率较郊区高。所以很多同学说没有更新是因为还在同一组基站范围内。</li>
+</ol>
+<p>##3、两者共性：<br>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
+<p>##4、上传信息<br>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
+
+    
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="leap" />
+          <p class="site-author-name" itemprop="name">leap</p>
+           
+              <p class="site-description motion-element" itemprop="description">记录下自己学习的点滴</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-coding李"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leap</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
