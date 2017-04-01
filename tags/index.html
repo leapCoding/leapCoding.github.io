@@ -87,28 +87,16 @@
 
 
 
-<meta name="description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
-##1. 实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
+<meta name="description" content="记录下自己学习的点滴">
 <meta property="og:type" content="website">
-<meta property="og:title" content="后台定位实现方案">
-<meta property="og:url" content="http://yoursite.com/categories/后台定位实现方案.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="coding李">
-<meta property="og:description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
-##1. 实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
-<meta property="og:updated_time" content="2017-04-01T16:25:53.000Z">
+<meta property="og:description" content="记录下自己学习的点滴">
+<meta property="og:updated_time" content="2017-04-01T16:37:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="后台定位实现方案">
-<meta name="twitter:description" content="后台定位实现方案##通过翻阅了各种官方文档和资料，总结结果如下：
-##1. 实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificant">
+<meta name="twitter:title" content="tags">
+<meta name="twitter:description" content="记录下自己学习的点滴">
 
 
 
@@ -136,7 +124,7 @@ significant-change location service（调用CLLocationManager 的startMonitoring
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/后台定位实现方案.html"/>
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
 
 
 
@@ -146,7 +134,7 @@ significant-change location service（调用CLLocationManager 的startMonitoring
   
 
   
-    后台定位实现方案 | coding李
+    tags | coding李
   
 </title>
 </head>
@@ -270,7 +258,7 @@ significant-change location service（调用CLLocationManager 的startMonitoring
   <div id="posts" class="posts-expand">
   <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">后台定位实现方案</h1>
+	<h1 class="post-title" itemprop="name headline">tags</h1>
 
 
 
@@ -278,24 +266,7 @@ significant-change location service（调用CLLocationManager 的startMonitoring
 
     
     
-      <h1 id="后台定位实现方案"><a href="#后台定位实现方案" class="headerlink" title="后台定位实现方案"></a>后台定位实现方案</h1><p>##通过翻阅了各种官方文档和资料，总结结果如下：</p>
-<p>##1. 实现后台定位有两种方法</p>
-<ol>
-<li>standard location service（调用CLLoctionManager的StartUpdateLocation）</li>
-<li>significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChanges）  </li>
-</ol>
-<p>##2. 两者区别</p>
-<ol>
-<li>startUpdatingLocation）是标准定位，想要在后台使用必须在info.plist文件中增加Required background modes属性，并选择App registers for location updates值。</li>
-<li>startUpdatingLocation）在后台运行时可能会因为资源问题被系统挂起（suspend）或终止（terminate），但一旦有更新会被唤起，但是当更新时系统任然资源紧张，则会被延迟调用委托。如果对于实时性要求高的可能不适合这个，很难控制用户机器性能状况。</li>
-<li>startUpdatingLocation）如果被用户手动关闭，就不会再被唤醒。定位基于gps/基站/wifi定位，具体使用哪一种CoreLocation框架有一套自己的规则。</li>
-<li>startMonitoringSignificantLocationChanges）是使用基站定位的，所以设备一定要有电话模块，在plist中可以设置xx属性来限制可被下载安装的设备。</li>
-<li>startMonitoringSignificantLocationChanges）不管是在后台还是用户手动关闭都会被唤醒调用委托，只有3种方法可以阻止它的更新。（1）用户关闭定位服务（2）用户关闭对该app的定位服务（3）设备处于飞行模式或者无法开启必要的硬件（猜测是定位模块的硬件）。</li>
-<li>startMonitoringSignificantLocationChanges）什么时候更新呢？是在更换基站的时候更新。所以更新频率与基站密度有关。市区更新频率较郊区高。所以很多同学说没有更新是因为还在同一组基站范围内。</li>
-</ol>
-<p>##3、两者共性：<br>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
-<p>##4、上传信息<br>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
-
+      
     
   </div>
 
