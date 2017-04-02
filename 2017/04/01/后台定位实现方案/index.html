@@ -88,27 +88,21 @@
 
 
 <meta name="description" content="通过翻阅了各种官方文档和资料，总结结果如下：
-#实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChange">
+实现后台定位有两种方法1.      standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="后台定位实现方案">
 <meta property="og:url" content="http://yoursite.com/2017/04/01/后台定位实现方案/index.html">
 <meta property="og:site_name" content="coding李">
 <meta property="og:description" content="通过翻阅了各种官方文档和资料，总结结果如下：
-#实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChange">
-<meta property="og:updated_time" content="2017-04-02T02:28:45.000Z">
+实现后台定位有两种方法1.      standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationC">
+<meta property="og:updated_time" content="2017-04-02T02:39:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后台定位实现方案">
 <meta name="twitter:description" content="通过翻阅了各种官方文档和资料，总结结果如下：
-#实现后台定位有两种方法
-
-standard location service（调用CLLoctionManager的StartUpdateLocation）
-significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChange">
+实现后台定位有两种方法1.      standard location service（调用CLLoctionManager的StartUpdateLocation）
+significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationC">
 
 
 
@@ -366,13 +360,10 @@ significant-change location service（调用CLLocationManager 的startMonitoring
 
       
         <p>通过翻阅了各种官方文档和资料，总结结果如下：</p>
-<p>#实现后台定位有两种方法</p>
-<ol>
-<li>standard location service（调用CLLoctionManager的StartUpdateLocation）</li>
+<h1 id="实现后台定位有两种方法"><a href="#实现后台定位有两种方法" class="headerlink" title="实现后台定位有两种方法"></a>实现后台定位有两种方法</h1><h1 id="1-standard-location-service（调用CLLoctionManager的StartUpdateLocation）"><a href="#1-standard-location-service（调用CLLoctionManager的StartUpdateLocation）" class="headerlink" title="1.      standard location service（调用CLLoctionManager的StartUpdateLocation）"></a>1.      standard location service（调用CLLoctionManager的StartUpdateLocation）</h1><ol>
 <li>significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChanges）  </li>
 </ol>
-<p>#两者区别</p>
-<ol>
+<h1 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h1><ol>
 <li>startUpdatingLocation）是标准定位，想要在后台使用必须在info.plist文件中增加Required background modes属性，并选择App registers for location updates值。</li>
 <li>startUpdatingLocation）在后台运行时可能会因为资源问题被系统挂起（suspend）或终止（terminate），但一旦有更新会被唤起，但是当更新时系统任然资源紧张，则会被延迟调用委托。如果对于实时性要求高的可能不适合这个，很难控制用户机器性能状况。</li>
 <li>startUpdatingLocation）如果被用户手动关闭，就不会再被唤醒。定位基于gps/基站/wifi定位，具体使用哪一种CoreLocation框架有一套自己的规则。</li>
@@ -380,8 +371,8 @@ significant-change location service（调用CLLocationManager 的startMonitoring
 <li>startMonitoringSignificantLocationChanges）不管是在后台还是用户手动关闭都会被唤醒调用委托，只有3种方法可以阻止它的更新。（1）用户关闭定位服务（2）用户关闭对该app的定位服务（3）设备处于飞行模式或者无法开启必要的硬件（猜测是定位模块的硬件）。</li>
 <li>startMonitoringSignificantLocationChanges）什么时候更新呢？是在更换基站的时候更新。所以更新频率与基站密度有关。市区更新频率较郊区高。所以很多同学说没有更新是因为还在同一组基站范围内。</li>
 </ol>
-<p>#两者共性：<br>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
-<p>#上传信息<br>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
+<h1 id="两者共性："><a href="#两者共性：" class="headerlink" title="两者共性："></a>两者共性：</h1><p>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
+<h1 id="上传信息"><a href="#上传信息" class="headerlink" title="上传信息"></a>上传信息</h1><p>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
 
       
     </div>
@@ -473,8 +464,17 @@ significant-change location service（调用CLLocationManager 的startMonitoring
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -532,6 +532,22 @@ significant-change location service（调用CLLocationManager 的startMonitoring
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现后台定位有两种方法"><span class="nav-number">1.</span> <span class="nav-text">实现后台定位有两种方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-standard-location-service（调用CLLoctionManager的StartUpdateLocation）"><span class="nav-number">2.</span> <span class="nav-text">1.      standard location service（调用CLLoctionManager的StartUpdateLocation）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两者区别"><span class="nav-number">3.</span> <span class="nav-text">两者区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两者共性："><span class="nav-number">4.</span> <span class="nav-text">两者共性：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上传信息"><span class="nav-number">5.</span> <span class="nav-text">上传信息</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
