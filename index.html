@@ -359,13 +359,13 @@
       
         
           
-            <h1 id="后台定位实现方案"><a href="#后台定位实现方案" class="headerlink" title="后台定位实现方案"></a>后台定位实现方案</h1><p>##通过翻阅了各种官方文档和资料，总结结果如下：</p>
-<p>##1. 实现后台定位有两种方法</p>
+            <p>通过翻阅了各种官方文档和资料，总结结果如下：</p>
+<p>#实现后台定位有两种方法</p>
 <ol>
 <li>standard location service（调用CLLoctionManager的StartUpdateLocation）</li>
 <li>significant-change location service（调用CLLocationManager 的startMonitoringSignificantLocationChanges）  </li>
 </ol>
-<p>##2. 两者区别</p>
+<p>#两者区别</p>
 <ol>
 <li>startUpdatingLocation）是标准定位，想要在后台使用必须在info.plist文件中增加Required background modes属性，并选择App registers for location updates值。</li>
 <li>startUpdatingLocation）在后台运行时可能会因为资源问题被系统挂起（suspend）或终止（terminate），但一旦有更新会被唤起，但是当更新时系统任然资源紧张，则会被延迟调用委托。如果对于实时性要求高的可能不适合这个，很难控制用户机器性能状况。</li>
@@ -374,8 +374,8 @@
 <li>startMonitoringSignificantLocationChanges）不管是在后台还是用户手动关闭都会被唤醒调用委托，只有3种方法可以阻止它的更新。（1）用户关闭定位服务（2）用户关闭对该app的定位服务（3）设备处于飞行模式或者无法开启必要的硬件（猜测是定位模块的硬件）。</li>
 <li>startMonitoringSignificantLocationChanges）什么时候更新呢？是在更换基站的时候更新。所以更新频率与基站密度有关。市区更新频率较郊区高。所以很多同学说没有更新是因为还在同一组基站范围内。</li>
 </ol>
-<p>##3、两者共性：<br>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
-<p>##4、上传信息<br>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
+<p>#两者共性：<br>两者都更新位置信息时都回调相同的委托方法：-(void)locationManager:(CLLocationManager <em>)manager didUpdateLocations:(NSArray </em>)locations;</p>
+<p>#上传信息<br>由于后台任务只分配了有限时间执行必要的操作，所以如果在超时之前未完成（比如网络请求），app将会被终止。这里有一个方法，可以申请额外的10分钟让你执行想要的操作，申请后台任务：beginBackgroundTaskWithExpirationHandler（不详细说了，使用方法可以查一下资料）。</p>
 
           
         
@@ -515,8 +515,8 @@
       
         
           
-            <h1 id="GitHub搭建免费个人博客"><a href="#GitHub搭建免费个人博客" class="headerlink" title="GitHub搭建免费个人博客"></a>GitHub搭建免费个人博客</h1><p>##1. 创建Github 域名和空间<br> <strong>1.1注册</strong><br>首先你需要注册一个<a href="https://github.com/" target="_blank" rel="external">GitHub</a>账号，已有的可以下翻去1.2 创建仓库，注意username，这会影响到你的域名，你的域名将会是 username.github.io ，所以认真的取个名字吧。<br><img src="http://om4bheheq.bkt.clouddn.com/136678-a5b815963631f1bf.png" alt="136678-a5b815963631f1bf"><br><strong>1.2创建仓库</strong><br>然后需要创建一个仓库(repository) 来存储我们的网站，点击首页任意位置出现的 New repository按钮创建仓库, Respository name 中的username.github.io 的username 一定与前面的Owner 一致，记住你的username下面会用到。<br><img src="http://om4bheheq.bkt.clouddn.com/136678-56e4a7256ab4f141.png" alt="136678-56e4a7256ab4f141"><br>第一步就已经完成了，下面是安装。</p>
-<p>##2.安装<br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo</a> 可以说是目前最流行的博客框架了，基于Nodejs，更多信息可以google，下面需要安装的工具包括 Git，Nodejs，Hexo。（Windows 用户自行搜索这些工具，直接安装即可，试过基本没啥问题）</p>
+            <h1 id="创建Github-域名和空间"><a href="#创建Github-域名和空间" class="headerlink" title="创建Github 域名和空间"></a>创建Github 域名和空间</h1><p> <strong>1.1注册</strong><br>首先你需要注册一个<a href="https://github.com/" target="_blank" rel="external">GitHub</a>账号，已有的可以下翻去1.2 创建仓库，注意username，这会影响到你的域名，你的域名将会是 username.github.io ，所以认真的取个名字吧。<br><img src="http://om4bheheq.bkt.clouddn.com/136678-a5b815963631f1bf.png" alt="136678-a5b815963631f1bf"><br><strong>1.2创建仓库</strong><br>然后需要创建一个仓库(repository) 来存储我们的网站，点击首页任意位置出现的 New repository按钮创建仓库, Respository name 中的username.github.io 的username 一定与前面的Owner 一致，记住你的username下面会用到。<br><img src="http://om4bheheq.bkt.clouddn.com/136678-56e4a7256ab4f141.png" alt="136678-56e4a7256ab4f141"><br>第一步就已经完成了，下面是安装。</p>
+<p>#安装<br><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">Hexo</a> 可以说是目前最流行的博客框架了，基于Nodejs，更多信息可以google，下面需要安装的工具包括 Git，Nodejs，Hexo。（Windows 用户自行搜索这些工具，直接安装即可，试过基本没啥问题）</p>
 <p>1.安装Git<br>// 如果已安装HomeBrew 无需执行此行<br>\$ /usr/bin/ruby -e “\$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="external">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”<br>$ brew install git   // 安装Git</p>
 <p>2.安装Nodejs<br>先安装nvm，这是Nodejs版本管理器，可以轻松切换Nodejs版本。 这里有两种方式安装。如果使用curl的方式安装，安装完成之后一定要重启终端。<br>2.1 Homebrew 安装方式，此安装方式无需重启<br> \$ brew install nvm<br> \$ mkdir ~/.nvm<br> \$ export NVM_DIR=~/.nvm<br> \$ . \$(brew –prefix nvm)/nvm.sh</p>
 <p>2.2 curl安装方式</p>
@@ -524,7 +524,7 @@
 <p>安装完成后，重启终端 并执行下列命令即可安装 Node.js。</p>
 <p>\$ nvm install 4</p>
 <p>2.3安装Hexo<br>以上所有都安装完成之后再安装Hexo<br>\$ sudo npm install hexo-cli -g<br>所有必须工具已经安装完成，下面我们就可以生成博客，上传至我们的Github 仓库了。</p>
-<p>3.编写，发布<br>接下来我们需要用Hexo初始化一个博客，然后更改一些自定义的配置，或者加上自己喜欢的主题，写上第一篇文章，然后发布到自己的个人Github网站(username.github.io)。<br>3.1创建博客<br>将下面的 username 替换成你自己的username(其实也无所谓，作者强迫症)，执行成功后，会创建出一个名为 username.github.io 的文件夹。<br>\$ hexo init username.github.io</p>
+<p>#编写，发布<br>接下来我们需要用Hexo初始化一个博客，然后更改一些自定义的配置，或者加上自己喜欢的主题，写上第一篇文章，然后发布到自己的个人Github网站(username.github.io)。<br>3.1创建博客<br>将下面的 username 替换成你自己的username(其实也无所谓，作者强迫症)，执行成功后，会创建出一个名为 username.github.io 的文件夹。<br>\$ hexo init username.github.io</p>
 <p>3.2更改配置<br>主题安装<br>为了使博客不太难看，我们需要安装一个主题，切换至刚刚生成的Hexo 目录，安装主题<br>\$ cd username.github.io<br>\$ git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a> themes/next</p>
 <p>这里选了一个极简的主题，也是Hexo众多主题中最受欢迎的一个。Hexo也有<a href="https://hexo.io/themes/" target="_blank" rel="external">更多主题</a>供你选择。<br>基础配置：打开文件位置username.github.io/_config.yml修改几个键值对，下面把几个必须设置的列出来按需求修改，记得保存， 还有注意配置的键值之间一定要有空格。<a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="external">更多设置…</a></p>
 <p>title: dimsky 的 9 维空间    //你博客的名字<br> author: dimsky  //你的名字<br> language: zh-Hans    //语言 中文<br> theme: next   //刚刚安装的主题名称<br> deploy:<br>   type: git    //使用Git 发布<br>   repo: <a href="https://github.com/username/username.github.io.git" target="_blank" rel="external">https://github.com/username/username.github.io.git</a>    // 刚创建的Github仓库<br>主题配置：<br>主题配置文件在username.github.io/themes/next/_config.yml中修改，这里略过。<a href="http://theme-next.iissnan.com/getting-started.html#theme-settings" target="_blank" rel="external">设置详情</a></p>
